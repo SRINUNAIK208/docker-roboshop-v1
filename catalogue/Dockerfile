@@ -6,7 +6,7 @@
 # CMD ["node", "server.js"]
 
 
-FROM node:26-alpine3.23 as builder 
+FROM node:26-alpine3.23 AS builder 
 WORKDIR /app 
 COPY package.json . 
 RUN npm install 
@@ -14,6 +14,8 @@ COPY *.js .
 
 FROM node:26-alpine3.23 
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+ENV MONGO="true" \
+    MONGO_URL="mongodb://mongodb:27017/catalogue"
 WORKDIR /app
 COPY --from=builder /app  ./
 USER roboshop
