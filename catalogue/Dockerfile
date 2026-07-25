@@ -1,0 +1,21 @@
+# FROM node:20 
+# WORKDIR /app 
+# COPY package.json .
+# RUN npm install 
+# COPY server.js . 
+# CMD ["node", "server.js"]
+
+
+FROM node:26-alpine3.23 as builder 
+WORKDIR /app 
+COPY package.json . 
+RUN npm install 
+COPY *.js . 
+
+FROM node:26-alpine3.23 
+RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+WORKDIR /app
+COPY --from=builder /app  ./
+USER roboshop
+EXPOSE 8080
+CMD ["node", "server.js"]
