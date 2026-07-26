@@ -8,6 +8,8 @@ RUN mvn clean package
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app 
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
+ENV CART_ENDPOINT="cart:8080" \
+    DB_HOST="mysql"
 COPY --from=builder /app/target/shipping-*.jar /app/shipping.jar
 USER roboshop
 CMD ["java", "-jar","shipping.jar"]
