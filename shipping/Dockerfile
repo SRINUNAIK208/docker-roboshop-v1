@@ -5,7 +5,7 @@ COPY src ./src
 RUN mvn clean package
 
 
-FROM eclipse-temurin:17-jre
+FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app 
 RUN addgroup -S roboshop && adduser -S roboshop -G roboshop
 COPY --from=builder /app/target/shipping-*.jar /app/shipping.jar
