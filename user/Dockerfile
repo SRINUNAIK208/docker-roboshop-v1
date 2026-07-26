@@ -1,7 +1,7 @@
 FROM node:22-alpine3.23 AS builder
 WORKDIR /app 
 COPY package.json .
-RUN nmm install
+RUN npm install
 COPY *.js .
 
 FROM node:22-alpine3.23 
