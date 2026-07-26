@@ -1,6 +1,6 @@
-FROM node:22-alpine3.23 as builder 
+FROM node:22-alpine3.23 AS builder 
 WORKDIR /app 
-COPY package.js .
+COPY package.json .
 RUN npm install 
 COPY *.js . 
 
